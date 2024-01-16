@@ -206,19 +206,19 @@ Para instanciar um client:
   //  A *http.Client
   //  The base path to the API you want to consume. ex: https://api.azionapi.net/
   //  The Azion Personal Token
-  func NewClient(f * http.Client, url string, token string) * Client {
-      conf: = sdk.NewConfiguration()
+  func NewClient(f *http.Client, url string, token string) *Client {
+      conf := sdk.NewConfiguration()
       conf.HTTPClient = f
       conf.AddDefaultHeader("Authorization", "token " + token)
       conf.AddDefaultHeader("Accept", "application/json;version=3")
       conf.Servers = sdk.ServerConfigurations {
           {
-              URL: url
+              URL: url,
           },
       }
       // Returns a ready to use client
       return &Client {
-          apiClient: * sdk.NewAPIClient(conf),
+          apiClient: *sdk.NewAPIClient(conf),
       }
   }
 ```
@@ -231,7 +231,7 @@ Veja a criação de uma zona iDNS usando o SDK:
   // NewIdns
   //   - Instantiate a sdk.Zone object
   //   - Instantiate the request and exec it
-  func(c * Client) NewIdns(domainName, domain * string, active * bool) error {
+  func(c *Client) NewIdns(domainName, domain *string, active *bool) error {
       // Instantiate a ctx variable
       ctx: = context.Background()
           // From the section iDNS of the SDK, we initialize a sdk.Zone object
@@ -241,7 +241,7 @@ Veja a criação de uma zona iDNS usando o SDK:
       idns.Domain = domain
       idns.IsActive = active
       // Make use of the PostZone Method, passing the idns zone object
-      req: = c.apiClient.ZonesApi.PostZone(ctx).Zone( * idns)
+      req := c.apiClient.ZonesApi.PostZone(ctx).Zone(*idns)
       res,
       httpResp,
       err: = req.Execute()
